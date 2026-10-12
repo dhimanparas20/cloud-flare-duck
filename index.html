@@ -1,0 +1,467 @@
+<!doctype html>
+<html lang="en" data-theme="dark">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>🦆 It All Ends Here — The Final Website</title>
+
+  <!-- Bootstrap (available if you want real components) -->
+  <link
+    href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css"
+    rel="stylesheet"
+  />
+
+  <!-- Tailwind CSS (Play CDN) -->
+  <script src="https://cdn.tailwindcss.com"></script>
+
+  <!-- Fun, meme-worthy fonts -->
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link
+    href="https://fonts.googleapis.com/css2?family=Bangers&family=Comic+Neue:wght@400;700&display=swap"
+    rel="stylesheet"
+  />
+
+  <style>
+    :root {
+      color-scheme: dark;
+      --bg: #0a0a12;
+      --surface: #14141f;
+      --surface-raised: #1d1d2b;
+      --text: #f2f0ff;
+      --text-muted: #a9a7c0;
+      --accent: #ffd23f;
+      --accent-2: #ff5d8f;
+      --border: #2b2b3d;
+      --motion-fast: 140ms;
+      --motion-base: 220ms;
+      --ease-bounce: cubic-bezier(0.34, 1.56, 0.64, 1);
+    }
+
+    * { box-sizing: border-box; }
+
+    body {
+      margin: 0;
+      min-height: 100vh;
+      background:
+        radial-gradient(1200px 700px at 80% -10%, #2a1b4d 0%, transparent 60%),
+        radial-gradient(900px 600px at 0% 110%, #1b2b4d 0%, transparent 55%),
+        var(--bg);
+      color: var(--text);
+      font-family: "Comic Neue", "Comic Sans MS", system-ui, sans-serif;
+      overflow-x: hidden;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      position: relative;
+    }
+
+    /* ---- twinkling star field ---- */
+    .stars {
+      position: fixed;
+      inset: 0;
+      pointer-events: none;
+      z-index: 0;
+    }
+    .star {
+      position: absolute;
+      width: 3px;
+      height: 3px;
+      background: #fff;
+      border-radius: 50%;
+      opacity: 0.6;
+      animation: twinkle 3s infinite ease-in-out;
+    }
+    @keyframes twinkle {
+      0%, 100% { opacity: 0.15; transform: scale(0.7); }
+      50% { opacity: 0.9; transform: scale(1.2); }
+    }
+
+    /* ---- the infinite duck parade ---- */
+    .duck-layer {
+      position: fixed;
+      inset: 0;
+      pointer-events: none;
+      z-index: 1;
+    }
+    .duck {
+      position: absolute;
+      left: 0;
+      will-change: transform;
+      animation: duckwalk var(--dur, 14s) linear infinite;
+      animation-delay: var(--delay, 0s);
+    }
+    .duck__body {
+      display: inline-block;
+      font-size: var(--size, 3rem);
+      filter: drop-shadow(0 4px 8px rgba(0, 0, 0, 0.5));
+      transform: scaleX(-1); /* walk right */
+      animation: waddle 0.5s ease-in-out infinite alternate;
+    }
+    @keyframes duckwalk {
+      0%   { transform: translateX(-15vw); }
+      100% { transform: translateX(115vw); }
+    }
+    @keyframes waddle {
+      from { transform: scaleX(-1) rotate(-8deg) translateY(0); }
+      to   { transform: scaleX(-1) rotate(8deg) translateY(-6px); }
+    }
+
+    /* ---- the ominous center card ---- */
+    .card {
+      position: relative;
+      z-index: 10;
+      width: min(92vw, 720px);
+      background: linear-gradient(160deg, var(--surface-raised), var(--surface));
+      border: 1px solid var(--border);
+      border-radius: 28px;
+      padding: clamp(2rem, 6vw, 4rem);
+      text-align: center;
+      box-shadow: 0 30px 80px rgba(0, 0, 0, 0.55), 0 0 0 1px rgba(255,255,255,0.03) inset;
+      animation: floaty 6s ease-in-out infinite;
+    }
+    @keyframes floaty {
+      0%, 100% { transform: translateY(0) rotate(-0.4deg); }
+      50% { transform: translateY(-12px) rotate(0.4deg); }
+    }
+
+    .title {
+      font-family: "Bangers", impact, sans-serif;
+      font-size: clamp(3rem, 12vw, 6rem);
+      letter-spacing: 0.04em;
+      line-height: 0.95;
+      color: #fff;
+      text-shadow:
+        0 0 10px rgba(255, 210, 63, 0.6),
+        0 0 40px rgba(255, 93, 143, 0.35);
+      animation: glitch 3.2s infinite steps(1);
+      cursor: pointer;
+      user-select: none;
+    }
+    @keyframes glitch {
+      0%,  86%, 100% { transform: translate(0); }
+      87% { transform: translate(-2px, 1px); }
+      88% { transform: translate(2px, -1px); }
+      89% { transform: translate(-1px, -1px); }
+      90% { transform: translate(1px, 2px); }
+      91% { transform: translate(0); }
+    }
+
+    .eyebrow {
+      letter-spacing: 0.35em;
+      text-transform: uppercase;
+      font-size: 0.75rem;
+      color: var(--accent);
+      margin-bottom: 0.75rem;
+    }
+    .sub {
+      color: var(--text-muted);
+      font-size: clamp(1rem, 2.5vw, 1.2rem);
+      margin-top: 1rem;
+    }
+    .footer-note {
+      margin-top: 2.5rem;
+      font-size: 0.85rem;
+      color: var(--text-muted);
+      opacity: 0.85;
+    }
+
+    .btn-meme {
+      font-family: "Comic Neue", sans-serif;
+      font-weight: 700;
+      border-radius: 999px;
+      padding: 0.8rem 1.6rem;
+      font-size: 1.05rem;
+      transition: transform var(--motion-fast) var(--ease-bounce), box-shadow var(--motion-fast);
+      cursor: pointer;
+      border: none;
+    }
+    .btn-meme:hover { transform: translateY(-3px) scale(1.03); }
+    .btn-meme:active { transform: translateY(1px) scale(0.98); }
+    .btn-meme:focus-visible { outline: 3px solid var(--accent); outline-offset: 3px; }
+
+    /* the button that refuses to be pressed */
+    #runaway { position: relative; }
+
+    /* toast stack */
+    .toasts {
+      position: fixed;
+      bottom: 1rem;
+      left: 50%;
+      transform: translateX(-50%);
+      z-index: 100;
+      display: flex;
+      flex-direction: column;
+      gap: 0.5rem;
+      width: min(92vw, 420px);
+    }
+    .toast-meme {
+      background: var(--surface-raised);
+      border: 1px solid var(--border);
+      border-left: 4px solid var(--accent-2);
+      color: var(--text);
+      border-radius: 14px;
+      padding: 0.85rem 1.1rem;
+      box-shadow: 0 12px 30px rgba(0,0,0,0.5);
+      animation: toastin 0.3s var(--ease-bounce);
+      font-size: 0.95rem;
+    }
+    .toast-meme.leaving { animation: toastout 0.3s forwards; }
+    @keyframes toastin  { from { opacity: 0; transform: translateY(20px) scale(0.9); } }
+    @keyframes toastout { to   { opacity: 0; transform: translateY(20px) scale(0.9); } }
+
+    .counter-badge {
+      position: fixed;
+      top: 1rem;
+      right: 1rem;
+      z-index: 50;
+      background: var(--surface-raised);
+      border: 1px solid var(--border);
+      border-radius: 999px;
+      padding: 0.5rem 1rem;
+      font-size: 0.8rem;
+      color: var(--text-muted);
+    }
+
+    @media (prefers-reduced-motion: reduce) {
+      *, *::before, *::after {
+        animation-duration: 0.01ms !important;
+        animation-iteration-count: 1 !important;
+        scroll-behavior: auto !important;
+        transition-duration: 0.01ms !important;
+      }
+      .duck { display: none; }
+    }
+  </style>
+</head>
+<body>
+  <!-- star field -->
+  <div class="stars" aria-hidden="true"></div>
+
+  <!-- infinite walking ducks -->
+  <div class="duck-layer" aria-hidden="true"></div>
+
+  <!-- pressing counter -->
+  <div class="counter-badge" id="counterBadge">🏆 foolish presses: 0</div>
+
+  <!-- center card -->
+  <main class="card" role="main">
+    <p class="eyebrow">⚠️ final warning · last website ever · 100% certified ⚠️</p>
+    <h1 class="title" id="titleText">It all ends here</h1>
+    <p class="sub" id="subText">
+      This is it. No sequel. No part two: electric boogaloo. Just ducks.
+    </p>
+
+    <div class="flex flex-wrap items-center justify-center gap-3 mt-8">
+      <button class="btn-meme" style="background:var(--accent);color:#111" id="partyBtn">
+        🎉 Get free nothing
+      </button>
+      <button class="btn-meme" style="background:#e74c3c;color:#fff" id="runaway">
+        ❌ DO NOT PRESS
+      </button>
+      <button class="btn-meme" style="background:var(--accent-2);color:#fff" id="duckBtn">
+        🦆 Summon duck
+      </button>
+    </div>
+
+    <p class="footer-note">
+      No browsers were harmed in the making of this website.
+      <br />
+      <span id="memeLine">Loading wisdom…</span>
+    </p>
+  </main>
+
+  <!-- toast stack -->
+  <div class="toasts" id="toasts" aria-live="polite"></div>
+
+  <script>
+    (function () {
+      "use strict";
+
+      var reduced = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+      var pressed = 0;
+      var clicks = 0;
+      var duckCount = 0;
+
+      var subLines = [
+        "This is it. No sequel. No part two: electric boogaloo. Just ducks.",
+        "You scrolled to the very bottom of existence. Congratulations?",
+        "The duck knows what you did last summer.",
+        "If you see this, it's already too late. The ducks have won.",
+        "Warning: this website contains 0% gluten and 100% nonsense.",
+        "We would like to thank absolutely nobody for making this possible."
+      ];
+
+      var memes = [
+        "The mitochondria is the powerhouse of the duck.",
+        "I came here to build a website and I'm honestly having second thoughts.",
+        "404: motivation not found.",
+        "The early bird gets the worm, but the duck gets the bread.",
+        "You cannot spell 'achievement' without 'duck'. Wait. Yes you can.",
+        "This duck walked 3,742 miles just to haunt you.",
+        "Error 418: I'm a teapot, but make it a duck.",
+        "Duck: noun, a chicken that went to the gym."
+      ];
+
+      // ---------- memes / captions ----------
+      var memeEl = document.getElementById("memeLine");
+      setInterval(function () {
+        memeEl.textContent = memes[Math.floor(Math.random() * memes.length)];
+      }, 4200);
+      memeEl.textContent = memes[0];
+
+      // ---------- toast system ----------
+      function toast(msg) {
+        var box = document.getElementById("toasts");
+        var node = document.createElement("div");
+        node.className = "toast-meme";
+        node.textContent = msg;
+        box.appendChild(node);
+        setTimeout(function () {
+          node.classList.add("leaving");
+          setTimeout(function () { node.remove(); }, 320);
+        }, 2600);
+      }
+
+      function randomOf(arr) {
+        return arr[Math.floor(Math.random() * arr.length)];
+      }
+
+      // ---------- stars ----------
+      var starsBox = document.querySelector(".stars");
+      for (var i = 0; i < 80; i++) {
+        var s = document.createElement("span");
+        s.className = "star";
+        s.style.left = Math.random() * 100 + "vw";
+        s.style.top = Math.random() * 100 + "vh";
+        s.style.animationDelay = Math.random() * 3 + "s";
+        s.style.animationDuration = 2 + Math.random() * 3 + "s";
+        starsBox.appendChild(s);
+      }
+
+      // ---------- infinite duck parade ----------
+      var duckLayer = document.querySelector(".duck-layer");
+      var sizes = ["2rem", "2.6rem", "3.2rem", "4rem", "4.8rem"];
+
+      function spawnDuck(randomY) {
+        var el = document.createElement("div");
+        el.className = "duck";
+        el.style.top = randomY ? (8 + Math.random() * 78) + "%" : (55 + Math.random() * 38) + "%";
+        el.style.setProperty("--dur", 9 + Math.random() * 12 + "s");
+        el.style.setProperty("--delay", (-Math.random() * 20) + "s");
+        el.style.setProperty("--size", randomOf(sizes));
+
+        var body = document.createElement("span");
+        body.className = "duck__body";
+        body.textContent = "🦆";
+        el.appendChild(body);
+        duckLayer.appendChild(el);
+        duckCount++;
+        return el;
+      }
+
+      for (var d = 0; d < 8; d++) spawnDuck(false);
+
+// ---------- party confetti ----------
+        (function () {
+            var st = document.createElement("style");
+            st.id = "confettiKeyframes";
+            st.textContent =
+                "@keyframes fall { 0% { transform: translateY(0) rotate(0); } " +
+                "100% { transform: translateY(110vh) rotate(720deg); } }";
+            document.head.appendChild(st);
+        })();
+
+        var confetti = ["🦆", "🎉", "😂", "🍞", "💥", "🦆", "✨", "🥚"];
+        function confettiRain() {
+            var n = reduced ? 6 : 28;
+            for (var i = 0; i < n; i++) {
+                var c = document.createElement("div");
+                c.textContent = randomOf(confetti);
+                c.style.position = "fixed";
+                c.style.left = (5 + Math.random() * 90) + "vw";
+                c.style.top = "-40px";
+                c.style.fontSize = (1 + Math.random() * 2) + "rem";
+                c.style.pointerEvents = "none";
+                c.style.zIndex = 90;
+                c.style.animation = "fall " + (2.2 + Math.random() * 2.5) + "s linear forwards";
+                document.body.appendChild(c);
+                (function (node) {
+                    var t = setTimeout(function () { node.remove(); }, 6000);
+                    node.addEventListener("animationend", function () {
+                        clearTimeout(t); node.remove();
+                    });
+                })(c);
+            }
+        }
+
+      // ---------- buttons ----------
+      document.getElementById("partyBtn").addEventListener("click", function () {
+        confettiRain();
+        toast(randomOf([
+          "Here is your free nothing. Use it wisely.",
+          "You've been gifted 0 dollars. Spend responsibly.",
+          "🎉 Congratulations! You won absolutely nothing!",
+          "Free serotonin dispensed. Supply is limited."
+        ]));
+      });
+
+      // the runaway button
+      var runaway = document.getElementById("runaway");
+      var runawayMsgs = [
+        "Nope.",
+        "Too slow.",
+        "You can't catch me.",
+        "I'm legally a button, not a piñata.",
+        "Nice try, detective.",
+        "This button has anxiety.",
+        "You shall not press.",
+        "I've filed a restraining order."
+      ];
+      function flee() {
+        if (reduced) return;
+        var maxX = window.innerWidth - runaway.offsetWidth - 16;
+        var maxY = window.innerHeight - runaway.offsetHeight - 16;
+        runaway.style.position = "fixed";
+        runaway.style.left = (16 + Math.random() * Math.max(maxX - 16, 1)) + "px";
+        runaway.style.top = (16 + Math.random() * Math.max(maxY - 16, 1)) + "px";
+        runaway.style.zIndex = 60;
+        toast(randomOf(runawayMsgs));
+      }
+      runaway.addEventListener("mouseenter", flee);
+      runaway.addEventListener("touchstart", function (e) { e.preventDefault(); flee(); });
+      runaway.addEventListener("click", function () {
+        pressed++;
+        document.getElementById("counterBadge").textContent =
+          "🏆 foolish presses: " + pressed;
+        if (pressed === 1) toast("You actually pressed it. Respect. And fear.");
+        else if (pressed === 5) toast("Five times?! The duck is disappointed in you.");
+        else if (pressed === 10) toast("Achievement unlocked: Chronic Button Abuser.");
+        else if (pressed === 25) toast("There is a support group for this. It's called 'the ducks'.");
+        else toast("Pressed " + pressed + " times. Legendary stubbornness.");
+      });
+
+      document.getElementById("duckBtn").addEventListener("click", function () {
+        var extra = spawnDuck(true);
+        toast(randomOf([
+          "🦆 A wild duck has been summoned!",
+          "Quack quack, motherducker.",
+          "New duck just dropped.",
+          "The duck council welcomes a new member."
+        ]));
+      });
+
+      // clicking the title swaps the joke
+      var title = document.getElementById("titleText");
+      var sub = document.getElementById("subText");
+      title.addEventListener("click", function () {
+        clicks++;
+        sub.textContent = randomOf(subLines);
+        if (clicks === 3) toast("Stop poking the title. It's sensitive.");
+        if (clicks === 7) toast("Okay, the title is now emotionally exhausted.");
+      });
+
+    })();
+  </script>
+</body>
+</html>
