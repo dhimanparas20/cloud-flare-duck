@@ -3,72 +3,57 @@
 A single-page, dark-themed joke website. One duck walks forever, one button runs
 away, and a very serious headline insists that **"It all ends here."**
 
-Made with plain HTML, CSS, and vanilla JS. Bootstrap + Tailwind load from a CDN,
-so there are no build steps and no local dependencies — just one file.
+Plain HTML, CSS, and vanilla JS. Bootstrap and Tailwind load from a CDN, so there
+is no build step and no dependencies. The whole site is one file: `index.html`.
 
 ## 📁 Files
 
 ```
 site/
-└── index.html      # the whole site (styles + scripts are inline)
+├── index.html   # the whole site (styles and scripts are inline)
+└── README.md
 ```
 
-## 🚀 Deploy to Cloudflare Pages
+## 🚀 Deploy to Vercel
 
-There are three ways. **Git integration is the most reliable.**
+Vercel serves a static `index.html` as-is. No framework, build command, or config
+file is needed.
 
-### 1. Git integration (recommended)
+### Option 1: Vercel dashboard (Git)
 
-1. Push this folder to a GitHub or GitLab repository:
+1. Push this folder to a GitHub repository:
 
    ```bash
-   git init
-   git add index.html
-   git commit -m "Static duck site"
-   git branch -M main
-   git remote add origin https://github.com/<you>/<repo>.git
-   git push -u origin main
+   git add .
+   git commit -m "Duck site"
+   git push origin main
    ```
 
-2. Cloudflare dashboard → **Workers & Pages → Create application**.
-3. Choose **Pages → Connect to Git**, authorise and select your repo.
-4. Build settings:
-   - **Branch:** `main`
-   - **Build command:** (leave empty)
-   - **Output directory:** `/`
-5. **Save and Deploy**.
+2. Go to [vercel.com/new](https://vercel.com/new) and import the repository.
+3. Use these settings:
+   - **Framework Preset:** `Other`
+   - **Build Command:** (leave empty)
+   - **Output Directory:** (leave empty, or `.`)
+4. Click **Deploy**.
 
-Your site goes live at `https://<project>.pages.dev`.
+Your site is live at `https://<project>.vercel.app`.
 
-### 2. Direct upload (drag & drop)
-
-1. **Workers & Pages → Create application → Pages → Upload assets**.
-2. Drag the **`site` folder** (or a zip of it) into the drop zone — not a stray file.
-3. **Deploy site**.
-
-### 3. Wrangler CLI
+### Option 2: Vercel CLI (no GitHub needed)
 
 ```bash
-npx wrangler login
-npx wrangler pages deploy site
+cd site
+npx vercel --prod
 ```
+
+Log in when prompted, accept the defaults, and the CLI prints the live URL.
 
 ## 🛠 Troubleshooting
 
-- **`Error 1101 — Worker threw exception` on a static site.** This is *not* caused
-  by the HTML. A static deployment returning 1101 means Cloudflare is routing the
-  request through a Worker/function that is crashing. Things to try:
-  1. Make sure no `_worker.js`, `worker.js`, or `functions/` folder is in the repo.
-  2. Project → **Settings → Builds & deployments → Build system version** — try
-     switching between **Version 1** and **Version 2** and redeploy.
-  3. Deploy with `npx wrangler pages deploy site` (CLI path often sidesteps the
-     dashboard build-system bug).
-  4. Check the [Cloudflare Status](https://www.cloudflarestatus.com) page, or report
-     it in the Cloudflare Workers Discord (`#pages-general`).
-
-- **Blank page / missing CSS?** Everything (Bootstrap, Tailwind, fonts) loads from
-  CDNs, so the site needs internet access to render styles.
+- **Blank page or unstyled text:** Bootstrap, Tailwind, and the fonts load from
+  CDNs, so the browser needs internet access.
+- **Wrong page shown:** The file must be named exactly `index.html` in the
+  deployed folder (Windows can hide `.html` extensions and save `index.html.html`).
 
 ## 📄 License
 
-MIT — do whatever you want with it. The ducks won't mind.
+MIT. The ducks won't mind.
